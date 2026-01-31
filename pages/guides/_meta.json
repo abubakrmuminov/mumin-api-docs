@@ -1,6 +1,8 @@
 {
-    "index": "Overview",
-    "pagination": "Pagination",
-    "caching": "Caching",
-    "best-practices": "Best Practices"
+  "index": "Overview",
+  "pagination": "Pagination",
+  "caching": "Caching",
+  "rate-limits": "Rate Limits",
+  "books": "Books & Collections",
+  "errors": "Errors & Troubleshooting"
 }

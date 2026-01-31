@@ -1,0 +1,39 @@
+---
+title: Caching
+---
+
+# Caching Strategies
+
+Caching is crucial for high-performance applications. Since hadith texts generally do not change, you can cache them aggressively to improve speed and save API credits.
+
+## Server-Side Caching
+
+The API sends `ETag` and `Cache-Control` headers. You should respect these headers in your client.
+
+## Client-Side Caching
+
+If you are building an app, we recommend storing fetched hadiths locally.
+
+### Using our SDK
+
+The `@mumin/core` SDK has built-in **Memory Caching**.
+
+```typescript
+const client = new MuminClient("KEY", {
+  // Enabled by default!
+  cache: new MemoryCache(),
+});
+```
+
+### Manual Caching
+
+If you are not using our SDK, consider using Redis or LocalStorage to store responses for at least 24 hours.
+
+```javascript
+// Pseudo-code
+const cached = localStorage.getItem('hadith_1')
+if (cached) return JSON.parse(cached)
+
+const data = fetch(...)
+localStorage.setItem('hadith_1', JSON.stringify(data))
+```

@@ -1,0 +1,74 @@
+---
+title: Make Your First Request
+description: Send your first API call in seconds
+---
+
+import { Tabs, Tab } from "nextra/components";
+
+# Make Your First Request
+
+Let's test your connection by fetching a random Hadith.
+
+## The Endpoint
+
+We'll use the `/hadiths/random` endpoint, which returns a single random hadith each time.
+
+`GET https://api.hadith.mumin.ink/v1/hadiths/random`
+
+## Code Examples
+
+Choose your preferred language to make the request:
+
+<Tabs items={['cURL', 'JavaScript', 'Python', 'PHP']}>
+  <Tab>
+    ```bash
+    curl -X GET "https://api.hadith.mumin.ink/v1/hadiths/random" \
+      -H "Authorization: Bearer YOUR_API_KEY"
+    ```
+  </Tab>
+  <Tab>
+    ```javascript
+    // Using our official SDK (Recommended)
+    import { MuminClient } from '@mumin/core'
+    
+    const client = new MuminClient('YOUR_API_KEY')
+    const hadith = await client.hadiths.random()
+    
+    console.log(hadith.translation.text)
+    ```
+  </Tab>
+  <Tab>
+    ```python
+    import requests
+
+    response = requests.get(
+        "https://api.hadith.mumin.ink/v1/hadiths/random",
+        headers={"Authorization": "Bearer YOUR_API_KEY"}
+    )
+
+    print(response.json()['data']['translation']['text'])
+    ```
+
+  </Tab>
+  <Tab>
+    ```php
+    <?php
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, "https://api.hadith.mumin.ink/v1/hadiths/random");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+        "Authorization: Bearer YOUR_API_KEY"
+    ));
+    
+    $response = curl_exec($ch);
+    $data = json_decode($response);
+    
+    echo $data->data->translation->text;
+    ?>
+    ```
+  </Tab>
+</Tabs>
+
+## Rate Limiting
+
+If you send too many requests quickly, you might receive a `429 Too Many Requests` error. Check the [Rate Limits](/guides/rate-limits) guide for more info.

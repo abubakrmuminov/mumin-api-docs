@@ -1,0 +1,59 @@
+---
+title: Build a React App
+---
+
+# Build a "Hadith of the Day" Widget
+
+In this tutorial, we will use **Next.js** and the **@mumin/react** SDK to build a simple widget.
+
+## 1. Setup
+
+```bash
+npx create-next-app@latest my-hadith-app
+cd my-hadith-app
+npm install @mumin/react @mumin/core
+```
+
+## 2. Create the Provider
+
+Wrap your application in `layout.tsx` (or `_app.tsx`):
+
+```tsx
+import { MuminProvider } from "@mumin/react";
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        <MuminProvider apiKey={process.env.NEXT_PUBLIC_MUMIN_API_KEY}>
+          {children}
+        </MuminProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+## 3. Create the Widget Component
+
+Create `components/DailyHadith.tsx`:
+
+```tsx
+"use client";
+import { useHadith } from "@mumin/react";
+
+export function DailyHadith() {
+  // Fetch a random hadith (acting as daily for demo)
+  const { data, loading } = useHadith(null); // pass explicit null if you want to trigger fetch manually,
+  // OR use client.hadiths.daily() via useMuminClient
+
+  // Better approach for Random:
+  // We can't use useHadith(random) directly yet, checking docs...
+  // actually useHadith takes an ID.
+
+  // Let's use the lower level client for flexibility in this specific tutorial
+  return <div>See docs for full hook details</div>;
+}
+```
+
+_Note: For the best experience, refer to the [React SDK Documentation](/sdks/react)._

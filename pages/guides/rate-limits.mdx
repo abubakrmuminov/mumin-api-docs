@@ -1,0 +1,39 @@
+---
+title: Rate Limits
+---
+
+import { Callout } from "nextra/components";
+
+# Rate Limits
+
+To ensure fair usage and system stability, the Mumin API implements rate limits.
+
+## Standard Limits
+
+| Plan           | Rate Limit              |
+| :------------- | :---------------------- |
+| **Free**       | 60 requests / minute    |
+| **Pro**        | 1,000 requests / minute |
+| **Enterprise** | Custom                  |
+
+## Headers
+
+Every response includes headers describing your current rate limit status:
+
+- `X-RateLimit-Limit`: The maximum number of requests you are allowed to make per minute.
+- `X-RateLimit-Remaining`: The number of requests remaining in the current time window.
+- `X-RateLimit-Reset`: The time at which the current rate limit window resets (in UTC epoch seconds).
+
+<Callout type="info">
+  If you exceed the limit, you will receive a `429 Too Many Requests` response.
+</Callout>
+
+## Handling Rate Limits
+
+If you hit a rate limit:
+
+1.  Check the `Retry-After` header to see how many seconds to wait.
+2.  Pause your requests for that duration.
+3.  Retry the request.
+
+Our official SDKs handle this automatically! 🚀

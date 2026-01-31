@@ -1,0 +1,51 @@
+---
+title: WordPress Plugin
+---
+
+# Create a WordPress Shortcode
+
+Learn how to add a `[random_hadith]` shortcode to your WordPress site using PHP.
+
+## The Code
+
+Add this code to your theme's `functions.php` file or a custom plugin.
+
+```php
+<?php
+
+function mumin_random_hadith_shortcode() {
+    $api_key = 'sk_mumin_YOUR_KEY';
+    $response = wp_remote_get('https://api.hadith.mumin.ink/v1/hadiths/random', array(
+        'headers' => array(
+            'Authorization' => 'Bearer ' . $api_key
+        )
+    ));
+
+    if (is_wp_error($response)) {
+        return 'Error fetching hadith.';
+    }
+
+    $body = wp_remote_retrieve_body($response);
+    $data = json_decode($body);
+    $hadith = $data->data;
+
+    ob_start();
+    ?>
+    <div class="mumin-hadith">
+        <blockquote>
+            <?php echo esc_html($hadith->translation->text); ?>
+        </blockquote>
+        <cite>
+            — <?php echo esc_html($hadith->collection->name); ?> #<?php echo esc_html($hadith->hadithNumber); ?>
+        </cite>
+    </div>
+    <?php
+    return ob_get_clean();
+}
+
+add_shortcode('random_hadith', 'mumin_random_hadith_shortcode');
+```
+
+## Usage
+
+Just place `[random_hadith]` in any Post or Page!

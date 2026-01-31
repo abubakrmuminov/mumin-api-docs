@@ -1,6 +1,10 @@
 {
-    "index": "Overview",
-    "javascript": "JavaScript",
-    "python": "Python",
-    "php": "PHP"
+  "index": "Overview",
+  "javascript": "JavaScript / TypeScript",
+  "react": "React",
+  "vue": "Vue.js",
+  "python": "Python",
+  "php": "PHP",
+  "go": "Go",
+  "community": "Community SDKs"
 }

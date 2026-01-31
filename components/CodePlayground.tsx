@@ -64,7 +64,7 @@ export function CodePlayground({
     if (!runnable) {
         // Static code block
         return (
-            <div className="my-6 border border-emerald-900/10 rounded-xl overflow-hidden bg-charcoal">
+            <div className="my-6 border border-emerald-900/10 rounded-xl overflow-hidden bg-charcoal not-prose code-playground">
                 <div className="bg-charcoal/50 px-4 py-2 flex items-center justify-between border-b border-white/10">
                     <div className="flex items-center space-x-2">
                         <div className="flex space-x-1.5">
@@ -90,6 +90,9 @@ export function CodePlayground({
                             margin: 0,
                             background: 'transparent',
                             fontSize: '14px',
+                            whiteSpace: 'pre',
+                            wordBreak: 'normal',
+                            overflowWrap: 'normal',
                         }}
                     >
                         {code}
@@ -101,7 +104,7 @@ export function CodePlayground({
 
     // Interactive code playground
     return (
-        <div className="my-6 border border-emerald-900/10 rounded-xl overflow-hidden bg-charcoal shadow-islamic">
+        <div className="my-6 border border-emerald-900/10 rounded-xl overflow-hidden bg-charcoal shadow-islamic not-prose code-playground">
             {/* Toolbar */}
             <div className="bg-charcoal/50 px-4 py-2 flex items-center justify-between border-b border-white/10">
                 <div className="flex items-center space-x-2">
@@ -131,7 +134,7 @@ export function CodePlayground({
                     </button>
                     <button
                         onClick={runCode}
-                        className="flex items-center space-x-1 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-sm transition-colors"
+                        className="flex items-center space-x-1 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded transition-colors"
                     >
                         <Play className="w-3 h-3" />
                         <span>Run</span>
@@ -143,13 +146,16 @@ export function CodePlayground({
             {showPreview ? (
                 <LiveProvider code={currentCode} scope={scope}>
                     <div className="grid md:grid-cols-2">
-                        <div className="p-4 border-r border-white/10">
+                        <div className="p-4 border-r border-white/10" style={{ wordBreak: 'normal', overflowWrap: 'normal' }}>
                             <LiveEditor
                                 onChange={(newCode) => setCurrentCode(newCode)}
                                 style={{
                                     fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
                                     fontSize: '14px',
                                     background: 'transparent',
+                                    whiteSpace: 'pre',
+                                    wordBreak: 'keep-all',
+                                    overflowWrap: 'normal',
                                 }}
                             />
                         </div>
@@ -164,7 +170,7 @@ export function CodePlayground({
                     <textarea
                         value={currentCode}
                         onChange={(e) => setCurrentCode(e.target.value)}
-                        className="w-full h-64 bg-transparent text-ivory font-mono text-sm resize-none focus:outline-none"
+                        className="w-full h-64 bg-transparent text-ivory font-mono text-sm resize-none focus:outline-none whitespace-pre overflow-x-auto"
                         spellCheck={false}
                     />
                 </div>

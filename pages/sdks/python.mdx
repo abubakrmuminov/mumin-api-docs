@@ -1,0 +1,46 @@
+---
+title: Python SDK
+---
+
+# Python Integration
+
+While we don't have a dedicated Python package yet, integrating with Python is simple using the `requests` library.
+
+## Installation
+
+```bash
+pip install requests
+```
+
+## Example: Random Hadith
+
+```python
+import requests
+
+API_KEY = "sk_mumin_..."
+BASE_URL = "https://api.hadith.mumin.ink/v1"
+
+def get_random_hadith():
+    headers = {
+        "Authorization": f"Bearer {API_KEY}"
+    }
+
+    try:
+        response = requests.get(f"{BASE_URL}/hadiths/random", headers=headers)
+        response.raise_for_status()
+
+        data = response.json().get('data', {})
+
+        # Access nested translation safely
+        translation = data.get('translation', {}).get('text')
+        arabic = data.get('arabicText')
+
+        print(f"Hadith #{data.get('hadithNumber')}")
+        print(f"Text: {translation or arabic}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching hadith: {e}")
+
+if __name__ == "__main__":
+    get_random_hadith()
+```

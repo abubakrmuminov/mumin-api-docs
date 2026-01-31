@@ -1,6 +1,6 @@
 {
-    "index": "Introduction",
-    "quick-start": "Quick Start",
-    "authentication": "Authentication",
-    "first-request": "First Request"
+  "introduction": "Introduction",
+  "authentication": "Authentication",
+  "first-request": "Make Your First Request",
+  "quick-start": "Quick Start Guide"
 }

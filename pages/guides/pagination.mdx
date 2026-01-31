@@ -1,0 +1,36 @@
+---
+title: Pagination
+---
+
+# Pagination
+
+Endpoints that return lists of data (like `/hadiths` or `/collections`) utilize pagination to keep responses fast and manageable.
+
+## Parameters
+
+| Parameter | Description                   | Default      |
+| :-------- | :---------------------------- | :----------- |
+| `page`    | The page number to retrieve.  | 1            |
+| `limit`   | The number of items per page. | 20 (Max 100) |
+
+## Response Structure
+
+Paginated responses are wrapped in a meta object:
+
+```json
+{
+  "data": [ ... ],
+  "meta": {
+    "total": 100,
+    "page": 1,
+    "limit": 20,
+    "lastPage": 5
+  }
+}
+```
+
+## Example (URL)
+
+Get the second page of search results:
+
+`GET /hadiths/search?q=prayer&page=2&limit=10`

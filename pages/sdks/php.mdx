@@ -1,0 +1,47 @@
+---
+title: PHP SDK
+---
+
+# PHP Integration
+
+Use `Guzzle` or `cURL` to interact with the Mumin API in PHP applications (Laravel, Symfony, WordPress).
+
+## Using Guzzle (Recommended)
+
+### Installation
+
+```bash
+composer require guzzlehttp/guzzle
+```
+
+### Example
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+use GuzzleHttp\Client;
+
+$client = new Client([
+    'base_uri' => 'https://api.hadith.mumin.ink/v1/',
+    'timeout'  => 2.0,
+]);
+
+try {
+    $response = $client->request('GET', 'hadiths/random', [
+        'headers' => [
+            'Authorization' => 'Bearer sk_mumin_YOUR_KEY'
+        ]
+    ]);
+
+    $body = json_decode($response->getBody());
+    $hadith = $body->data;
+
+    echo "Hadith #{$hadith->hadithNumber}\n";
+    echo $hadith->translation->text;
+
+} catch (\Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+```

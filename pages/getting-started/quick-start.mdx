@@ -9,102 +9,114 @@ import { InteractiveExample } from "@/components/InteractiveExample";
 import { LanguageTabs, Tab } from "@/components/LanguageTabs";
 import { CodePlayground } from "@/components/CodePlayground";
 
+import { Row } from "@/components/Row";
+import { Col } from "@/components/Col";
+
 # Quick Start
 
-Get your first API response in under **5 minutes**. 🚀
+<Row>
+  <Col>
+    Let's get your first API response in under **5 minutes**. 🚀
 
-<Steps>
+    ### 1. Create an Account
 
-### Create an Account
+    Sign up at [dashboard.mumin.ink](https://dashboard.mumin.ink/register)
 
-Sign up at [dashboard.mumin.ink](https://dashboard.mumin.ink/register)
+    <Callout type="info">
+      You'll receive **1,000 free credits** to get started!
+    </Callout>
 
-<Callout type="info">
-  You'll receive **1,000 free credits** to get started!
-</Callout>
+    ### 2. Get Your API Key
 
-### Get Your API Key
+    1. Navigate to **API Keys**
+    2. Click **"Create New Key"**
+    3. Copy your API key (starts with `sk_mumin_`)
 
-1. Navigate to **API Keys** in your dashboard
-2. Click **"Create New Key"**
-3. Copy your API key (starts with `sk_mumin_`)
+    <Callout type="warning">
+      **Important:** Store your API key securely. It will only be shown once!
+    </Callout>
 
-<Callout type="warning">
-  **Important:** Store your API key securely. It will only be shown once!
-</Callout>
+  </Col>
+  <Col sticky>
+    ### Make Your First Request
 
-### Make Your First Request
+    Try this **interactive example** - it makes a real API call! 🔥
 
-Try this **interactive example** - it makes a real API call! 🔥
+    <InteractiveExample
+      method="GET"
+      endpoint="/hadiths/1"
+      queryParams={[{ name: "lang", value: "en", type: "text" }]}
+      requiresAuth={true}
+    />
 
-<InteractiveExample
-  method="GET"
-  endpoint="/hadiths/1"
-  queryParams={[{ name: "lang", value: "en", type: "text" }]}
-  requiresAuth={true}
-/>
+  </Col>
+</Row>
 
-### Try Different Languages
-
-<LanguageTabs>
-  <Tab label="JavaScript">
-    <CodePlayground
-      language="javascript"
-      code={`import { MuminClient } from '@mumin/core'
-
-const client = new MuminClient('YOUR_API_KEY')
-
-// Get a hadith cleanly with types!
-const hadith = await client.hadiths.get(1)
-console.log(hadith.translation.text)`}
-runnable
-/>
-
-  </Tab>
-  
-  <Tab label="Python">
-    ```python
-    import requests
-
-    headers = {'Authorization': 'Bearer YOUR_API_KEY'}
-    response = requests.get(
-        'https://api.mumin.ink/v1/hadiths/1',
-        params={'lang': 'en'},
-        headers=headers
-    )
-    hadith = response.json()
-    print(hadith['translations']['en']['text'])
-    ```
-
-  </Tab>
-  
-  <Tab label="PHP">
-    ```php
-    <?php
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://api.mumin.ink/v1/hadiths/1?lang=en');
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Authorization: Bearer YOUR_API_KEY'
-    ]);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+<Row>
+  <Col>
+    ### 3. Try Different Languages
     
-    $response = curl_exec($ch);
-    $hadith = json_decode($response);
-    
-    echo $hadith->translations->en->text;
-    ?>
-    ```
-  </Tab>
-  
-  <Tab label="cURL">
-    ```bash
-    curl -X GET "https://api.mumin.ink/v1/hadiths/1?lang=en" \
-      -H "Authorization: Bearer YOUR_API_KEY"
-    ```
-  </Tab>
-</LanguageTabs>
+    We have SDKs for JavaScript, React, and Vue. For other languages, use standard HTTP requests.
+  </Col>
+  <Col>
+    <LanguageTabs>
+      <Tab label="JavaScript">
+        <CodePlayground
+          language="javascript"
+          code={`import { MuminClient } from '@mumin/core'
 
-</Steps>
+    const client = new MuminClient('YOUR_API_KEY')
+
+    // Get a hadith cleanly with types!
+    const hadith = await client.hadiths.get(1)
+    console.log(hadith.translation.text)`}
+          runnable
+        />
+      </Tab>
+
+      <Tab label="Python">
+        ```python
+        import requests
+
+        headers = {'Authorization': 'Bearer YOUR_API_KEY'}
+        response = requests.get(
+            'https://api.mumin.ink/v1/hadiths/1',
+            params={'lang': 'en'},
+            headers=headers
+        )
+        hadith = response.json()
+        print(hadith['translations']['en']['text'])
+        ```
+      </Tab>
+
+      <Tab label="PHP">
+        ```php
+        <?php
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://api.mumin.ink/v1/hadiths/1?lang=en');
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Authorization: Bearer YOUR_API_KEY'
+        ]);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($ch);
+        $hadith = json_decode($response);
+
+        echo $hadith->translations->en->text;
+        ?>
+        ```
+      </Tab>
+
+      <Tab label="cURL">
+        ```bash
+        curl -X GET "https://api.mumin.ink/v1/hadiths/1?lang=en" \
+          -H "Authorization: Bearer YOUR_API_KEY"
+        ```
+      </Tab>
+    </LanguageTabs>
+
+  </Col>
+</Row>
 
 ## Next Steps
 
@@ -133,27 +145,33 @@ runnable
 
 ## Common Use Cases
 
-### Get Random Hadith
+<Row>
+  <Col>### Get Random Hadith Great for "Hadith of the Day" widgets.</Col>
+  <Col>
+    <InteractiveExample
+      method="GET"
+      endpoint="/hadiths/random"
+      queryParams={[{ name: "lang", value: "en", type: "text" }]}
+      requiresAuth={true}
+    />
+  </Col>
+</Row>
 
-<InteractiveExample
-  method="GET"
-  endpoint="/hadiths/random"
-  queryParams={[{ name: "lang", value: "en", type: "text" }]}
-  requiresAuth={true}
-/>
-
-### Search Hadiths
-
-<InteractiveExample
-  method="GET"
-  endpoint="/hadiths/search"
-  queryParams={[
-    { name: "q", value: "prayer", type: "text" },
-    { name: "lang", value: "en", type: "text" },
-    { name: "limit", value: "5", type: "number" },
-  ]}
-  requiresAuth={true}
-/>
+<Row>
+  <Col>### Search Hadiths Full-text search across all languages.</Col>
+  <Col>
+    <InteractiveExample
+      method="GET"
+      endpoint="/hadiths/search"
+      queryParams={[
+        { name: "q", value: "prayer", type: "text" },
+        { name: "lang", value: "en", type: "text" },
+        { name: "limit", value: "5", type: "number" },
+      ]}
+      requiresAuth={true}
+    />
+  </Col>
+</Row>
 
 ## Need Help?
 

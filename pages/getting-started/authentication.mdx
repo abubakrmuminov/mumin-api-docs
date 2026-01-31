@@ -1,0 +1,42 @@
+---
+title: Authentication
+description: How to authenticate your API requests
+---
+
+import { Callout } from "nextra/components";
+
+# Authentication
+
+The Mumin API uses **API Keys** to authenticate requests. You can view and manage your API keys in the [Developer Dashboard](https://dashboard.mumin.ink).
+
+## Getting an API Key
+
+1.  Log in to your [Dashboard](https://dashboard.mumin.ink).
+2.  Navigate to the **API Keys** section.
+3.  Click **Create New Key**.
+4.  Copy the key immediately. It looks like `sk_mumin_...`.
+
+<Callout type="warning">
+  Your API key carries many privileges, so be sure to keep it secure! Do not
+  share your secret API keys in publicly accessible areas such as GitHub,
+  client-side code, and so forth.
+</Callout>
+
+## Authentication Header
+
+Authenticate your API calls by including your API key in the `Authorization` header of every request:
+
+```http
+Authorization: Bearer sk_mumin_YOUR_API_KEY
+```
+
+### Example
+
+```bash
+curl https://api.hadith.mumin.ink/v1/hadiths/random \
+  -H "Authorization: Bearer sk_mumin_123456789"
+```
+
+<Callout type="error">
+  Requests without a valid API key will return a `401 Unauthorized` error.
+</Callout>

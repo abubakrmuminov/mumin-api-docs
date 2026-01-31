@@ -1,9 +1,17 @@
 {
-    "getting-started": "Getting Started",
-    "api-reference": "API Reference",
-    "guides": "Guides",
-    "sdks": "SDKs",
-    "tutorials": "Tutorials",
-    "legal": "Legal",
-    "changelog": "Changelog"
+  "index": {
+    "title": "Home",
+    "type": "page",
+    "display": "hidden"
+  },
+  "getting-started": "Getting Started",
+  "guides": "Guides & Concepts",
+  "api-reference": "API Reference",
+  "sdks": "SDKs",
+  "tutorials": "Tutorials",
+  "changelog": {
+    "title": "Changelog",
+    "type": "page"
+  },
+  "legal": "Legal"
 }
