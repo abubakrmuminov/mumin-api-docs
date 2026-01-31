@@ -3,10 +3,12 @@ title: Mumin Hadith API Documentation
 description: Production-ready API for authentic Islamic hadiths
 ---
 
-import { IslamicHero } from '@/components/IslamicHero'
-import { QuickStartCards } from '@/components/QuickStartCards'
-import { FeatureGrid } from '@/components/FeatureGrid'
-import { CodePlayground } from '@/components/CodePlayground'
+import { IslamicHero } from "@/components/IslamicHero";
+import { QuickStartCards } from "@/components/QuickStartCards";
+import { FeatureGrid } from "@/components/FeatureGrid";
+import { CodePlayground } from "@/components/CodePlayground";
+import { UseCasesGrid } from "@/components/UseCasesGrid";
+import { PricingCards } from "@/components/PricingCards";
 
 <IslamicHero
   title="Build with Authentic Islamic Content"
@@ -36,61 +38,61 @@ console.log(hadith.translations.en.text)`}
 
 ## Features
 
-<FeatureGrid items={[
-  {
-    icon: "⚡",
-    title: "Lightning Fast",
-    description: "Redis caching ensures <50ms response times"
-  },
-  {
-    icon: "🌍",
-    title: "Multi-Language",
-    description: "Arabic, English, Russian, Uzbek support"
-  },
-  {
-    icon: "🔐",
-    title: "Secure",
-    description: "API key auth with rate limiting"
-  },
-  {
-    icon: "📚",
-    title: "7,500+ Hadiths",
-    description: "Complete Sahih al-Bukhari collection"
-  },
-  {
-    icon: "🚀",
-    title: "Developer Friendly",
-    description: "RESTful API with comprehensive docs"
-  },
-  {
-    icon: "💰",
-    title: "Pay as You Go",
-    description: "Only pay for what you use"
-  },
-  {
-    icon: "📊",
-    title: "Analytics",
-    description: "Track usage and performance"
-  },
-  {
-    icon: "🛡️",
-    title: "99.9% Uptime",
-    description: "Enterprise-grade reliability"
-  }
-]} />
+<FeatureGrid
+  items={[
+    {
+      icon: "⚡",
+      title: "Lightning Fast",
+      description: "Redis caching ensures &lt;50ms response times",
+    },
+    {
+      icon: "🌍",
+      title: "Multi-Language",
+      description: "Arabic, English, Russian, Uzbek support",
+    },
+    {
+      icon: "🔐",
+      title: "Secure",
+      description: "API key auth with rate limiting",
+    },
+    {
+      icon: "📚",
+      title: "7,500+ Hadiths",
+      description: "Complete Sahih al-Bukhari collection",
+    },
+    {
+      icon: "🚀",
+      title: "Developer Friendly",
+      description: "RESTful API with comprehensive docs",
+    },
+    {
+      icon: "💰",
+      title: "Pay as You Go",
+      description: "Only pay for what you use",
+    },
+    {
+      icon: "📊",
+      title: "Analytics",
+      description: "Track usage and performance",
+    },
+    {
+      icon: "🛡️",
+      title: "99.9% Uptime",
+      description: "Enterprise-grade reliability",
+    },
+  ]}
+/>
 
 ## Quick Example
 
 Try this interactive example - it makes a **real API call**! 🚀
 
-import { InteractiveExample } from '@/components/InteractiveExample'
+import { InteractiveExample } from "@/components/InteractiveExample";
 
 <InteractiveExample
   method="GET"
   endpoint="/hadiths/random"
-  queryParams={[
-    { name: 'lang', value: 'en', type: 'text' }
-  ]}
+  queryParams={[{ name: "lang", value: "en", type: "text" }]}
   requiresAuth={true}
 />
 
@@ -103,6 +105,7 @@ All hadiths are from **Sahih al-Bukhari**, the most authentic hadith collection 
 ### 🌐 Multi-Language Support
 
 Get hadiths in:
+
 - 🇸🇦 **Arabic** (original)
 - 🇬🇧 **English** (M. Muhsin Khan)
 - 🇷🇺 **Russian** (Абу Адель)
@@ -125,75 +128,11 @@ Get hadiths in:
 
 ## Use Cases
 
-<div className="grid md:grid-cols-2 gap-6 my-8">
-  <div className="p-6 border border-emerald-900/10 rounded-xl">
-    <h3 className="text-lg font-display text-emerald-900 mb-2">📱 Mobile Apps</h3>
-    <p className="text-sm text-charcoal/60 font-body">
-      Build Islamic apps with daily hadith notifications, search, and bookmarking.
-    </p>
-  </div>
-
-  <div className="p-6 border border-emerald-900/10 rounded-xl">
-    <h3 className="text-lg font-display text-emerald-900 mb-2">🌐 Websites</h3>
-    <p className="text-sm text-charcoal/60 font-body">
-      Display hadiths on your Islamic website or blog with our easy-to-use API.
-    </p>
-  </div>
-
-  <div className="p-6 border border-emerald-900/10 rounded-xl">
-    <h3 className="text-lg font-display text-emerald-900 mb-2">🤖 Bots</h3>
-    <p className="text-sm text-charcoal/60 font-body">
-      Create Telegram, Discord, or WhatsApp bots that share daily hadiths.
-    </p>
-  </div>
-
-  <div className="p-6 border border-emerald-900/10 rounded-xl">
-    <h3 className="text-lg font-display text-emerald-900 mb-2">📊 Research</h3>
-    <p className="text-sm text-charcoal/60 font-body">
-      Analyze hadith data for academic research and Islamic studies.
-    </p>
-  </div>
-</div>
+<UseCasesGrid />
 
 ## Pricing
 
-<div className="grid md:grid-cols-3 gap-6 my-8">
-  <div className="p-6 border border-emerald-900/10 rounded-xl">
-    <h3 className="text-2xl font-display text-emerald-900 mb-2">Free Trial</h3>
-    <p className="text-4xl font-display text-gold-500 mb-4">1,000</p>
-    <p className="text-sm text-charcoal/60 font-body mb-4">credits to get started</p>
-    <ul className="space-y-2 text-sm text-charcoal/70">
-      <li>✅ All features</li>
-      <li>✅ Multi-language</li>
-      <li>✅ Full API access</li>
-    </ul>
-  </div>
-
-  <div className="p-6 border-2 border-gold-500 rounded-xl relative">
-    <div className="absolute top-0 right-0 bg-gold-500 text-white text-xs px-3 py-1 rounded-bl-lg rounded-tr-lg font-accent">
-      Popular
-    </div>
-    <h3 className="text-2xl font-display text-emerald-900 mb-2">Pay as You Go</h3>
-    <p className="text-4xl font-display text-gold-500 mb-4">$0.001</p>
-    <p className="text-sm text-charcoal/60 font-body mb-4">per request</p>
-    <ul className="space-y-2 text-sm text-charcoal/70">
-      <li>✅ No monthly fees</li>
-      <li>✅ Only pay for usage</li>
-      <li>✅ Volume discounts</li>
-    </ul>
-  </div>
-
-  <div className="p-6 border border-emerald-900/10 rounded-xl">
-    <h3 className="text-2xl font-display text-emerald-900 mb-2">Enterprise</h3>
-    <p className="text-4xl font-display text-gold-500 mb-4">Custom</p>
-    <p className="text-sm text-charcoal/60 font-body mb-4">pricing for high volume</p>
-    <ul className="space-y-2 text-sm text-charcoal/70">
-      <li>✅ Dedicated support</li>
-      <li>✅ SLA guarantees</li>
-      <li>✅ Custom features</li>
-    </ul>
-  </div>
-</div>
+<PricingCards />
 
 ## Ready to start?
 

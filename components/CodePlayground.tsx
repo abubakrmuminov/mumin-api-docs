@@ -141,7 +141,7 @@ export function CodePlayground({
 
             {/* Code Editor */}
             {showPreview ? (
-                <LiveProvider code={currentCode} scope={scope} theme={oneDark as any}>
+                <LiveProvider code={currentCode} scope={scope}>
                     <div className="grid md:grid-cols-2">
                         <div className="p-4 border-r border-white/10">
                             <LiveEditor

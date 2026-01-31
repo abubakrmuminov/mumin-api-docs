@@ -1,179 +1,185 @@
 ---
-title: JavaScript SDK
-description: Official Node.js and browser SDK
+title: JavaScript & TypeScript SDK
+description: Official Node.js, React, and Vue SDKs for Mumin API
 ---
 
-import { CodePlayground } from '@/components/CodePlayground'
-import { LanguageTabs, Tab } from '@/components/LanguageTabs'
+import { CodePlayground } from "@/components/CodePlayground";
+import { LanguageTabs, Tab } from "@/components/LanguageTabs";
+import { Callout } from "nextra/components";
 
-# JavaScript SDK
+# JavaScript & TypeScript SDK
 
-Official JavaScript/TypeScript SDK for Mumin Hadith API.
+<div className="flex gap-2 mt-4 mb-8">
+  <img
+    src="https://img.shields.io/npm/v/@mumin/core?label=@mumin/core&style=flat-square&color=emerald"
+    alt="@mumin/core"
+  />
+  <img
+    src="https://img.shields.io/npm/l/@mumin/core?style=flat-square&color=blue"
+    alt="License"
+  />
+</div>
+
+The official Mumin SDK provides a verified, type-safe, and cached way to interact with the API. It works in **Node.js**, **Browsers**, **React**, and **Vue**.
 
 ## Installation
 
-```bash
-npm install mumin-hadith-api
-# or
-yarn add mumin-hadith-api
-```
+<LanguageTabs>
+  <Tab label="npm">
+    ```bash
+    # Core (Node.js / Vanilla JS)
+    npm install @mumin/core
 
-## Quick Start
+    # React
+    npm install @mumin/react @mumin/core
+
+    # Vue
+    npm install @mumin/vue @mumin/core
+    ```
+
+  </Tab>
+  <Tab label="pnpm">
+    ```bash
+    pnpm add @mumin/core
+    ```
+  </Tab>
+  <Tab label="yarn">
+    ```bash
+    yarn add @mumin/core
+    ```
+  </Tab>
+</LanguageTabs>
+
+---
+
+## Core SDK (Node.js / Vanilla JS)
+
+Suitable for server-side logic (Next.js API routes) or plain JavaScript apps.
+
+### Quick Start
 
 <CodePlayground
   language="javascript"
-  code={`import { MuminAPI } from 'mumin-hadith-api'
+  code={`import { MuminClient } from '@mumin/core'
 
-const client = new MuminAPI('YOUR_API_KEY')
+const client = new MuminClient('YOUR_API_KEY')
 
-// Get a hadith
-const hadith = await client.hadiths.get(1, { lang: 'en' })
-console.log(hadith.translations.en.text)
+// 1. Get a random hadith
+const random = await client.hadiths.random()
+console.log('Random:', random.translation?.text)
 
-// Search hadiths
-const results = await client.hadiths.search('intention', { lang: 'en' })
-console.log(\`Found \${results.total} hadiths\`)
+// 2. Search for hadiths
+const search = await client.search.query('prayer')
+console.log('Found:', search.data.length, 'hadiths')
 
-// Random hadith
-const random = await client.hadiths.random({ lang: 'ru' })
-console.log(random.translations.ru.text)`}
-  runnable
+// 3. Get specific hadith
+const hadith = await client.hadiths.get(1)
+console.log('Hadith #1:', hadith.arabicText)`}
+runnable={false}
 />
 
-## Client Configuration
-
-```javascript
-const client = new MuminAPI('YOUR_API_KEY', {
-  baseURL: 'https://api.mumin.ink/v1',
-  timeout: 5000,
-  retries: 3,
-  headers: {
-    'User-Agent': 'MyApp/1.0'
-  }
-})
-```
-
-## API Methods
-
-### Get by ID
+### Client Configuration
 
 ```typescript
-client.hadiths.get(
-  id: number,
-  options?: {
-    lang?: string | string[]
-    includeArabic?: boolean
-  }
-): Promise<Hadith>
+const client = new MuminClient("API_KEY", {
+  baseURL: "https://api.hadith.mumin.ink/v1",
+  timeout: 5000, // 5 seconds
+  retries: 3, // Retry failed requests 3 times
+  retryDelay: 1000, // Wait 1s between retries
+});
 ```
 
-**Example:**
+---
 
-```javascript
-const hadith = await client.hadiths.get(1, {
-  lang: ['en', 'ru'],
-  includeArabic: true
-})
+## React SDK
+
+React hooks for seamless data fetching.
+
+### Setup Provider
+
+Wrap your app in `MuminProvider`:
+
+```tsx
+// App.tsx
+import { MuminProvider } from "@mumin/react";
+
+export default function App() {
+  return (
+    <MuminProvider apiKey="YOUR_API_KEY">
+      <YourApp />
+    </MuminProvider>
+  );
+}
 ```
 
-### Search
+### Usage
+
+```tsx
+import { useHadith } from "@mumin/react";
+
+function HadithCard() {
+  const { data, loading, error } = useHadith(1);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div className="card">
+      <h3>Hadith #{data?.hadithNumber}</h3>
+      <p>{data?.translation?.text}</p>
+    </div>
+  );
+}
+```
+
+---
+
+## Vue SDK
+
+Composables for Vue 3 applications.
+
+### Setup Plugin
 
 ```typescript
-client.hadiths.search(
-  query: string,
-  options?: {
-    lang?: string
-    book?: number
-    limit?: number
-    offset?: number
-  }
-): Promise<PaginatedResponse<Hadith>>
+// main.ts
+import { createApp } from "vue";
+import { MuminPlugin } from "@mumin/vue";
+
+const app = createApp(App);
+app.use(MuminPlugin, { apiKey: "YOUR_API_KEY" });
 ```
 
-**Example:**
+### Usage
 
-```javascript
-const results = await client.hadiths.search('prayer', {
-  lang: 'en',
-  limit: 10
-})
-```
+```vue
+<script setup>
+import { useHadith } from "@mumin/vue";
 
-### Random
+const { data, loading } = useHadith(1);
+</script>
 
-```typescript
-client.hadiths.random(
-  options?: {
-    lang?: string | string[]
-    book?: number
-  }
-): Promise<Hadith>
-```
-
-## TypeScript Support
-
-Full TypeScript definitions included:
-
-```typescript
-import { MuminAPI, Hadith, Translation } from 'mumin-hadith-api'
-
-const client = new MuminAPI(process.env.MUMIN_API_KEY!)
-
-const hadith: Hadith = await client.hadiths.get(1)
-const translation: Translation = hadith.translations.en
+<template>
+  <div v-if="loading">Loading...</div>
+  <div v-else>
+    {{ data?.translation?.text }}
+  </div>
+</template>
 ```
 
 ## Error Handling
 
-```javascript
-import { MuminAPIError } from 'mumin-hadith-api'
+The SDK provides typed error classes:
+
+```typescript
+import { AuthenticationError, RateLimitError } from "@mumin/core";
 
 try {
-  const hadith = await client.hadiths.get(99999)
+  await client.hadiths.get(1);
 } catch (error) {
-  if (error instanceof MuminAPIError) {
-    console.error('API Error:', error.code)
-    console.error('Message:', error.message)
-    console.error('Request ID:', error.requestId)
+  if (error instanceof AuthenticationError) {
+    console.error("Please check your API key");
+  } else if (error instanceof RateLimitError) {
+    console.error("Slow down!");
   }
 }
 ```
-
-## React Integration
-
-```jsx
-import { useMumin } from 'mumin-hadith-api/react'
-
-function HadithOfTheDay() {
-  const { data: hadith, loading, error } = useMumin(
-    (client) => client.hadiths.random({ lang: 'en' }),
-    { refreshInterval: 86400000 } // Refresh daily
-  )
-
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>Error: {error.message}</div>
-
-  return (
-    <div>
-      <h2>Hadith of the Day</h2>
-      <p>{hadith.translations.en.text}</p>
-      <small>— {hadith.translations.en.narrator}</small>
-    </div>
-  )
-}
-```
-
-## Examples
-
-Find complete examples in the [GitHub repository](https://github.com/mumin-api/js-sdk/tree/main/examples):
-
-- Basic usage
-- React app
-- Vue app
-- Express.js API
-- Next.js integration
-- Discord bot
-
-## License
-
-MIT License

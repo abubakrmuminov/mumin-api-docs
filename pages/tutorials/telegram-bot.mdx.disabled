@@ -85,9 +85,9 @@ return await response.json()
 function formatHadith(hadith) {
 const translation = hadith.translations.en
 return (
-'📖 _Hadith ' + hadith.number + ' from Book ' + hadith.book + '_' + '\\n\\n' +
+'📖 _Hadith ' + hadith.number + ' from Book ' + hadith.book + '_\\n\\n' +
 translation.text + '\\n\\n' +
-'_Narrator: ' + translation.narrator + '_' + '\\n\\n' +
+'_Narrator: ' + translation.narrator + '_\\n\\n' +
 '🕌 Sahih al-Bukhari'
 )
 }
