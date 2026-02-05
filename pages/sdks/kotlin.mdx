@@ -1,0 +1,84 @@
+---
+title: Kotlin Multiplatform SDK
+description: Official Kotlin SDK for Android, iOS, and JVM applications.
+---
+
+# Kotlin Multiplatform SDK
+
+The official Kotlin Multiplatform (KMP) SDK for the **Mumin Hadith API**.  
+Build Android, iOS, and JVM applications with a modern, type-safe, and DSL-powered client.
+
+## ✨ Features
+
+- **🌍 Multiplatform**: Supports Android, iOS, and JVM.
+- **🚀 Ktor Powered**: Uses the flexible Ktor HTTP client.
+- **🛡️ DSL Configuration**: Fluent and expressive API for client setup.
+- **🧠 Thread-Safe Cache**: Built-in memory cache with `Mutex` and TTL support.
+
+## 📦 Installation
+
+Add the following to your `build.gradle.kts`:
+
+```kotlin
+dependencies {
+    implementation("ink.mumin:sdk:1.0.0")
+
+    // Platform-specific Ktor engines:
+    // Android: ktor-client-okhttp
+    // JVM: ktor-client-cio
+    // iOS: ktor-client-darwin
+}
+```
+
+## 🚀 Quick Start
+
+```kotlin
+import ink.mumin.sdk.MuminClient
+import kotlin.time.Duration.Companion.minutes
+
+val client = MuminClient {
+    apiKey = "YOUR_API_KEY"
+    cache {
+        enabled = true
+        ttl = 30.minutes
+    }
+}
+
+suspend fun main() {
+    val hadith = client.hadiths.random()
+    println("Hadith: ${hadith.translation?.text}")
+}
+```
+
+## 📱 iOS / Swift Usage
+
+The SDK is compiled as a Framework and can be used directly in Swift:
+
+```swift
+import MuminSDK
+
+let client = MuminClient { config in
+    config.apiKey = "YOUR_API_KEY"
+}
+
+func fetchDaily() async {
+    let hadith = try? await client.hadiths.daily(lang: "en")
+}
+```
+
+## 🛠️ Configuration
+
+The `MuminClient` supports detailed configuration via DSL:
+
+```kotlin
+val client = MuminClient {
+    apiKey = "..."
+    baseUrl = "https://api.hadith.mumin.ink/v1"
+    timeout = 30.seconds
+
+    cache {
+        enabled = true
+        ttl = 1.hours
+    }
+}
+```
